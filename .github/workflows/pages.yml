@@ -21,6 +21,20 @@ jobs:
           cat pace-source-*.b64 | base64 --decode > pace-site.zip
           mkdir -p _site
           unzip -o pace-site.zip -d _site
+      - name: Attach responsive layout
+        run: |
+          cp responsive-layout.css _site/responsive-layout.css
+          python3 - <<'PYTHON'
+          from pathlib import Path
+          index = Path("_site/index.html")
+          html = index.read_text()
+          link = '<link rel="stylesheet" href="responsive-layout.css">'
+          if link not in html:
+              if html.count("</head>") != 1:
+                  raise SystemExit("Expected one closing head tag in Pace index")
+              html = html.replace("</head>", f"  {link}\n</head>", 1)
+              index.write_text(html)
+          PYTHON
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

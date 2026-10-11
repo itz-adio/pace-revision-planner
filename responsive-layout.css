@@ -1,0 +1,33 @@
+/* Keep the page grids inside the space left by the fixed Pace navigation. */
+.content { container: pace-content / inline-size; min-width: 0; }
+.planner-work { grid-template-columns: minmax(0,1fr); }
+.profile-side { grid-template-columns: minmax(0,1fr); }
+
+@container pace-content (max-width: 920px) {
+  .welcome-row { grid-template-columns: 1fr; }
+  .welcome-side { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: auto; }
+  .planner-grid { grid-template-columns: minmax(0,1fr); grid-template-areas: "work" "aside"; }
+  .planner-aside { grid-template-columns: repeat(2,minmax(0,1fr)); align-items: start; }
+  .soft-note { grid-column: 1/-1; }
+  .profile-grid { grid-template-columns: minmax(0,1fr); }
+  .profile-side { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .profile-list { grid-row: span 2; }
+}
+
+@container pace-content (max-width: 760px) {
+  .steps-row { grid-template-columns: 1fr; }
+  .home-lower { grid-template-columns: 1fr; gap: 11px; }
+}
+
+@container pace-content (max-width: 620px) {
+  .planner-head { align-items: stretch; flex-direction: column; }
+  .date-picker { width: 100%; }
+  .planner-aside,.profile-side { grid-template-columns: 1fr; }
+  .soft-note { grid-column: auto; }
+  .profile-list { grid-row: auto; }
+  .chapter-grid,.study-topic-groups { grid-template-columns: 1fr; }
+  .study-session { grid-template-columns: 20px minmax(0,1fr) auto; gap: 8px; padding: 9px; }
+  .study-tag { display: none; }
+  .study-board-footer { align-items: stretch; flex-direction: column; }
+  .study-board-footer > .button { width: 100%; }
+}
